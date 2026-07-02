@@ -1,19 +1,19 @@
 import { Page, Locator } from '@playwright/test';
 export class PracticeFormPage {
-    readonly txtFirstName;
-    readonly txtLastName;
-    readonly txtEmail
+    readonly txtFirstName: Locator;
+    readonly txtLastName: Locator;
+    readonly txtEmail: Locator;
     // readonly rdGender;
-    readonly txtMobile;
-    readonly txtDateOfBirth;
-    readonly txtSubjects;
+    readonly txtMobile: Locator;
+    readonly txtDateOfBirth: Locator;
+    readonly txtSubjects: Locator;
     // readonly chkHobbies;
-    readonly txtPicture;
-    readonly txtCurrentAddress;
-    readonly cbState;
-    readonly cbCity;
+    readonly txtPicture: Locator;
+    readonly txtCurrentAddress: Locator;
+    readonly cbState: Locator;
+    readonly cbCity: Locator;
     rdGenderAndHobbiesXpath: string = 'xpath=//*[text()="@param"]/preceding-sibling::input';
-    readonly btnSubmit;
+    readonly btnSubmit: Locator;
 
     constructor(public readonly page: Page) {
     this.txtFirstName = page.locator('#firstName');
@@ -41,15 +41,14 @@ export class PracticeFormPage {
         await rdGender.click();
         await this.txtMobile.fill(mobile);
         await this.inputDateOfBirth(dateOfBirth);
-        await this.page.waitForTimeout(5000);
-        await this.inputComboBoxWithMultiValues(this.txtSubjects, subjects);
+        await this.inputComboBoxWithMultiValues(subjects);
         await this.clickOnHobbies(this.rdGenderAndHobbiesXpath, hobbies);
-        await this.inputComboBoxWithSingleValue(this.cbState, state);
-        await this.inputComboBoxWithSingleValue(this.cbCity, city);
         const picture = process.cwd() + '/testcases/testdata/' + pictureName;
         await this.txtPicture.setInputFiles(picture);
         await this.txtCurrentAddress.fill(currentAddress);
-        await this.btnSubmit.click();        
+        await this.inputComboBoxWithSingleValue(this.cbState, state);
+        await this.inputComboBoxWithSingleValue(this.cbCity, city);
+        // await this.btnSubmit.click();        
     }
 
     async getLocatorByText(xpath : string, text: string) : Promise<Locator> {
@@ -63,24 +62,23 @@ export class PracticeFormPage {
         const hobbiesList = hobbies.split(',').map(hobby => hobby.trim());
         for (const hobby of hobbiesList) {
             const newXpath = originalXpath.replace('@param', hobby);
-            await this.page.locator(newXpath).scrollIntoViewIfNeeded();
+            // await this.page.locator(newXpath).scrollIntoViewIfNeeded();
             await this.page.locator(newXpath).click();
         }
     
 } 
     
      
-    async inputComboBoxWithMultiValues(locator: Locator, value: string) {
+    async inputComboBoxWithMultiValues(value: string) {
         const values = value.split(',').map(v => v.trim());
         for (const val of values) {
-            await locator.scrollIntoViewIfNeeded();
-            await locator.fill(val);
-            await this.page.keyboard.press('Enter');
+            await this.txtSubjects.fill(val);
+            await this.txtSubjects.press('Tab');
         }
 }
     async inputComboBoxWithSingleValue(locator: Locator, value: string){
         await locator.fill(value);
-        await this.page.keyboard.press('Enter');
+        await locator.press('Tab');
     }
 
     async inputDateOfBirth(dateOfBirth: string) {
