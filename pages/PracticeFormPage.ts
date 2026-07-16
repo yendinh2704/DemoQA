@@ -43,11 +43,12 @@ export class PracticeFormPage {
         await this.inputDateOfBirth(dateOfBirth);
         await this.inputComboBoxWithMultiValues(subjects);
         await this.clickOnHobbies(this.rdGenderAndHobbiesXpath, hobbies);
-        const picture = process.cwd() + '/testcases/testdata/' + pictureName;
+        const picture = process.cwd() + '/testcase/testdata/' + pictureName;
         await this.txtPicture.setInputFiles(picture);
         await this.txtCurrentAddress.fill(currentAddress);
         await this.inputComboBoxWithSingleValue(this.cbState, state);
         await this.inputComboBoxWithSingleValue(this.cbCity, city);
+        await this.page.waitForTimeout(5000); // Wait for 5 seconds before clicking the submit button
         // await this.btnSubmit.click();        
     }
 
@@ -67,8 +68,6 @@ export class PracticeFormPage {
         }
     
 } 
-    
-     
     async inputComboBoxWithMultiValues(value: string) {
         const values = value.split(',').map(v => v.trim());
         for (const val of values) {
@@ -76,6 +75,17 @@ export class PracticeFormPage {
             await this.txtSubjects.press('Tab');
         }
 }
+    
+    async inputSubjects(subjects: string) {
+    subjects = subjects.replace(/"/g, ""); //remove dấu " ở đầu và cuối chuỗi
+    const subjectList = subjects.split(",").map((s) => s.trim());
+    for (const sub of subjectList) {
+      await this.txtSubjects.fill(sub);
+      await this.txtSubjects.press("Enter");
+      // Wait for 1 second to allow the subject to be added
+    }
+    }
+
     async inputComboBoxWithSingleValue(locator: Locator, value: string){
         await locator.fill(value);
         await locator.press('Tab');
@@ -89,6 +99,9 @@ export class PracticeFormPage {
         await this.page.locator(`.react-datepicker__day--0${day}:not(.react-datepicker__day--outside-month)`).click();
         await this.page.keyboard.press('Escape');
     }
-}
 
-    
+
+    async clickSubmit() {
+        await this.page.locator('#submit').click();
+    }
+}

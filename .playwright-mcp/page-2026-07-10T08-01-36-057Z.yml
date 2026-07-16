@@ -1,0 +1,30 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - link:
+      - /url: https://demoqa.com
+  - generic [ref=e5]:
+    - generic [ref=e6]:
+      - link "Selenium Online Training":
+        - /url: https://www.toolsqa.com/selenium-training/
+        - img "Selenium Online Training"
+    - generic [ref=e8]:
+      - link [ref=e9] [cursor=pointer]:
+        - /url: /elements
+        - heading "Elements" [level=5] [ref=e17]
+      - link [ref=e18] [cursor=pointer]:
+        - /url: /forms
+        - heading "Forms" [level=5] [ref=e27]
+      - link [ref=e28] [cursor=pointer]:
+        - /url: /alertsWindows
+        - heading "Alerts, Frame & Windows" [level=5] [ref=e36]
+      - link [ref=e37] [cursor=pointer]:
+        - /url: /widgets
+        - heading "Widgets" [level=5] [ref=e46]
+      - link [ref=e47] [cursor=pointer]:
+        - /url: /interaction
+        - heading "Interactions" [level=5] [ref=e55]
+      - link [ref=e56] [cursor=pointer]:
+        - /url: /books
+        - heading "Book Store Application" [level=5] [ref=e64]
+  - contentinfo [ref=e65]:
+    - generic [ref=e66]: © 2013-2026 TOOLSQA.COM | ALL RIGHTS RESERVED.

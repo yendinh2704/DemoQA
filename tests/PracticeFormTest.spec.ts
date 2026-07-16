@@ -12,6 +12,10 @@ test.describe('Practice Form Test', () => {
     await practiceFormPage.goto();
   });
 
+     test.afterEach(async ({ page }) => {
+    await page.close();
+  });
+
   test('Submit data successfully', async () => {
     const firstName = 'John';
     const lastName = 'Doe';
@@ -52,5 +56,15 @@ test.describe('Practice Form Test', () => {
     const actualStateAndCity = thanksForSubmittingPage.getLocatorByText(thanksForSubmittingPage.lblValueXpath, 'State and City');
     await expect(actualStateAndCity, state + ' ' + city);  
   });
-    // add assertions or form submission steps here
-  });
+ 
+
+  test('Submit failed with blank required fields', async ({ page }) => {
+    await practiceFormPage.clickSubmit();
+    await expect(practiceFormPage.txtFirstName).toHaveCSS('border-color', 'rgb(220, 53, 69)');
+    await expect(practiceFormPage.txtLastName).toHaveCSS('border-color', 'rgb(220, 53, 69)');
+    const maleLabel = page.locator(practiceFormPage.rdGenderAndHobbiesXpath.replace('@param', 'Male'));
+    await expect(maleLabel).toHaveCSS('border-color', 'rgb(220, 53, 69)');
+    await expect(practiceFormPage.txtMobile).toHaveCSS('border-color', 'rgb(220, 53, 69)');
+  })
+})
+
