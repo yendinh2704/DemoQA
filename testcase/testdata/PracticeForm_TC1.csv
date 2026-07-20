@@ -1,0 +1,2 @@
+firstName,lastName,email,gender,mobile,dateOfBirth,subjects,hobbies,pictureName,currentAddress,state,city
+John,Doe,john.doe@example.com,Male,1234567890,1 January 90,"Maths,Physics","Sports,Reading",images.png,123 Main St,NCR,Delhi;

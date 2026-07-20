@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 import { PracticeFormPage } from '../pages/PracticeFormPage';
 import * as path from 'path';
 import { ThanksForSubmittingPage } from '../pages/ThanksForSubmittingPage';
+import { readDataFromCSV } from '../common/Utils';
 
 
 test.describe('Practice Form Test', () => {
@@ -15,6 +16,7 @@ test.describe('Practice Form Test', () => {
      test.afterEach(async ({ page }) => {
     await page.close();
   });
+  const testData = readDataFromCSV("testcase/testdata/PracticeForm_TC1.csv");
 
   test('Submit data successfully', async () => {
     const firstName = 'John';
