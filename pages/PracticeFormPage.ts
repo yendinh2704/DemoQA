@@ -71,6 +71,7 @@ export class PracticeFormPage {
     async inputComboBoxWithMultiValues(value: string) {
         const values = value.split(',').map(v => v.trim());
         for (const val of values) {
+            await this.page.waitForTimeout(2000);
             await this.txtSubjects.fill(val);
             await this.txtSubjects.press('Tab');
         }
