@@ -3,14 +3,17 @@ import { PracticeFormPage } from '../pages/PracticeFormPage';
 import * as path from 'path';
 import { ThanksForSubmittingPage } from '../pages/ThanksForSubmittingPage';
 import { readDataFromCSV } from '../common/Utils';
+import { TestBase } from '../common/TestBase';
 
 
 test.describe('Practice Form Test', () => {
   let practiceFormPage: PracticeFormPage;
+  let testBase: TestBase;
 
   test.beforeEach(async ({ page }) => {
     practiceFormPage = new PracticeFormPage(page);
-    await practiceFormPage.goto();
+    testBase = new TestBase(page);
+    await testBase.gotoPage('https://demoqa.com/automation-practice-form');
   });
 
      test.afterEach(async ({ page }) => {
@@ -20,19 +23,6 @@ test.describe('Practice Form Test', () => {
   for (const data of testData) {
 
   test('Submit data successfully', async () => {
-    
-    // const firstName = 'John';
-    // const lastName = 'Doe';
-    // const email = 'john.doe@example.com';
-    // const gender = 'Male';
-    // const mobile = '1234567890';
-    // const dateOfBirth = '01 January 1990';
-    // const subjects = 'Maths, Physics';
-    // const hobbies = 'Sports, Reading';
-    // const pictureName = 'images.png';
-    // const currentAddress = '123 Main St';
-    // const state = 'NCR';
-    // const city = 'Delhi';
     await practiceFormPage.inputData(data.firstName??"", data.lastName??"", data.email??"", data.gender??"", data.mobile??"", data.dateOfBirth??"", data.subjects??"", data.hobbies??"", data.pictureName??"", data.currentAddress??"", data.state??"", data.city??"");
     
     const thanksForSubmittingPage = new ThanksForSubmittingPage(practiceFormPage.page);

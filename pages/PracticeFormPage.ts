@@ -30,7 +30,7 @@ export class PracticeFormPage {
     }
 
     async goto() {
-        await this.page.goto('/automation-practice-form');
+        await this.page.goto('/automation-practice-form', { waitUntil: 'domcontentloaded' });
     }
 
     async inputData(firstName: string, lastName: string, email: string, gender: string, mobile: string, dateOfBirth: string, subjects: string, hobbies: string, pictureName: string, currentAddress: string, state: string, city: string) {
